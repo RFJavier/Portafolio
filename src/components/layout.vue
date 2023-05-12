@@ -1,9 +1,18 @@
-<script setup lang="ts"></script>
-<template class="w-screen h-16  " >
+<script setup lang="ts">
+import { RouterLink } from 'vue-router';
+import { ref } from 'vue';
+
+let isdark =ref<boolean>(false);
 
 
 
-  <div class="w-full h-auto bg-emerald-500">
+
+</script>
+<template class="w-screen h-screen" >
+
+
+
+  <div class="w-full h-auto bg-[#00CBA9]">
 
 <nav class="border-gray-200 w-full -ml-24 h-auto">
   <div class="container mx-auto flex flex-wrap  items-center justify-start">
@@ -18,22 +27,52 @@
   <div class="hidden md:flex justify-between items-center w-full md:w-auto md:order-1">
     <ul class="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
       <li>
-        <RouterLink to="/" class="text-lg text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0" aria-current="Informacion">Informacion</RouterLink>
+        <RouterLink to="/" class="text-lg text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0" aria-current="Informacion">Inicio</RouterLink>
       </li>
+     
       <li>
-        <RouterLink to="/about" class="text-lg text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0">Proyectos</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/habilidad" class="text-lg text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0">Habilidades</RouterLink>
+        <RouterLink to="/habilidad" class="text-lg text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0">Mi trabajo</RouterLink>
       </li>
       <li>
         <RouterLink to="/contacto" class="text-lg text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0">Contacto</RouterLink>
       </li>
+      <li>
+        {{ }}
+        <input
+ @change="isdark = !isdark" class="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-100 after:shadow-[0_0px_3px_0_rgb(0_0_0_/7%),_0_2px_2px_0_rgb(0_0_0/4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px-2px_rgba(0,0,0,0.2),0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+  type="checkbox"
+  role="switch"
+  id="flexSwitchCheckDefault" />
+<label
+  class="inline-block pl-[0.15rem] hover:cursor-pointer text-lg font-semibold   "
+  for="flexSwitchCheckDefault"
+  >Dark</label
+>
+      </li>
     </ul>
   </div>
   </div>
-</nav>
+  
+
+</nav> 
+
+
+
+
+</div>
+<div :class="{'dark': isdark}">
+  <div class="bg-gray-400  dark:bg-black">
+    <slot class="w-auto h-auto  " >
+
+</slot>
+
+  </div>
 
 </div>
 
+
+
+
+
 </template>
+
