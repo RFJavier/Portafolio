@@ -1,39 +1,82 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import layout from '../components/layout.vue'
+
+let nombre = ref<string>("");
+  let correo = ref<string>("");
+  let mensaje = ref<string>("");
+  let errores:number = 0;
+  function validarFormulario() {
+  
+
+  if (!nombre.value.trim()) {
+    errores++;
+    alert("El nombre es obligatorio");
+  } else if (!/^[a-zA-Z\s]*$/.test(nombre.value)) {
+    errores-1;
+    alert("El nombre no debe contener números ni caracteres especiales");
+  }
+
+  if (!correo.value.trim()) {
+    errores++;
+    alert("El correo es obligatorio");
+  } else if (!validarCorreo(correo.value)) {
+    errores++;
+    alert("El correo no es válido");
+  }
+
+  if (!mensaje.value.trim()) {
+    errores++;
+    alert("El mensaje es obligatorio");
+  } else if (!/^[a-zA-Z\s]*$/.test(mensaje.value)) {
+    errores++;
+    alert("El mensaje no debe contener números ni caracteres especiales");
+  }
+  if (errores = 3){
+    alert("Se ah enviado tu mensaje en breve me conactare contigo ten presente que el tiempo de respuesta es de 24 horas agradeceria su paciencia")
+    
+  }
+
+  
+}
+  function validarCorreo(correo: string): boolean {
+    return /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(correo);
+  }
+
 </script>
 
-<template class="w-full h-auto">
-    <layout class="h-auto">  
+<template class="w-full h-auto ">
+    <layout class="h-auto dark:text-[#00CBA9]">  
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#00cba9" fill-opacity="1" d="M0,192L48,186.7C96,181,192,171,288,186.7C384,203,480,245,576,224C672,203,768,117,864,90.7C960,64,1056,96,1152,96C1248,96,1344,64,1392,48L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>  
 
-        <section class="text-gray-600 body-font relative">
+        <section class="dark:text-[#00CBA9] body-font relative">
   <div class="container px-5 py-24 mx-auto">
     <div class="flex flex-col text-center w-full mb-12">
-      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Contact Us</h1>
-      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify.</p>
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 dark:text-[#00CBA9]">Contact Us</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Puedes contactar conmigo dejando tu mensaje en este formulario</p>
     </div>
     <div class="lg:w-1/2 md:w-2/3 mx-auto">
       <div class="flex flex-wrap -m-2">
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="name" class="leading-7 text-sm text-gray-600">Name</label>
-            <input type="text" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="name" class="leading-7 text-sm dark:text-[#00CBA9]">Name</label>
+            <input v-model="nombre" type="text" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
         </div>
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
-            <input type="email" id="email" name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="email" class="leading-7 text-sm dark:text-[#00CBA9]">Email</label>
+            <input v-model="correo" type="email" id="email" name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
         </div>
         <div class="p-2 w-full">
           <div class="relative">
-            <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
-            <textarea id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+            <label for="message" class="leading-7 text-sm dark:text-[#00CBA9]">Message</label>
+            <textarea v-model="mensaje" id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
           </div>
         </div>
         <div class="p-2 w-full">
-          <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+          <button  @click="validarFormulario" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
         </div>
         <div class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
           <a class="text-indigo-500">example@email.com</a>

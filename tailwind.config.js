@@ -6,9 +6,7 @@ export default {
     "./src/**/*.{html,vue,js,ts,jsx,tsx}",],
   theme: {
     extend: {
-      darkMode: {
-
-      },
+ 
     },
   },
   darkMode: 'class',
