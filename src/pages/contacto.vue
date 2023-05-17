@@ -1,47 +1,19 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import layout from '../components/layout.vue'
+import layout from '../components/layout.vue';
+import * as yup from 'yup';
+  import {Field, ErrorMessage, Form, useForm} from 'vee-validate'
+  const validationSchema = yup.object().shape({
+    name : yup.string().required('el nombre es necesario'),
+    email : yup.string().required().email('el email es necesario'),
+    message : yup.string().required('Escriba su mensaje')
+  })
+  //investigar sobre hooks//
+  const {handleSubmit}= useForm({
+    initialValues:{name:'' , email: '', message :''}, validationSchema
+  })
 
-let nombre = ref<string>("");
-  let correo = ref<string>("");
-  let mensaje = ref<string>("");
-  let errores:number = 0;
-  function validarFormulario() {
+  const OnSubmit = handleSubmit((values)=>{console.log(values)})
   
-
-  if (!nombre.value.trim()) {
-    errores++;
-    alert("El nombre es obligatorio");
-  } else if (!/^[a-zA-Z\s]*$/.test(nombre.value)) {
-    errores-1;
-    alert("El nombre no debe contener números ni caracteres especiales");
-  }
-
-  if (!correo.value.trim()) {
-    errores++;
-    alert("El correo es obligatorio");
-  } else if (!validarCorreo(correo.value)) {
-    errores++;
-    alert("El correo no es válido");
-  }
-
-  if (!mensaje.value.trim()) {
-    errores++;
-    alert("El mensaje es obligatorio");
-  } else if (!/^[a-zA-Z\s]*$/.test(mensaje.value)) {
-    errores++;
-    alert("El mensaje no debe contener números ni caracteres especiales");
-  }
-  if (errores = 3){
-    alert("Se ah enviado tu mensaje en breve me conactare contigo ten presente que el tiempo de respuesta es de 24 horas agradeceria su paciencia")
-    
-  }
-
-  
-}
-  function validarCorreo(correo: string): boolean {
-    return /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(correo);
-  }
 
 </script>
 
@@ -55,30 +27,33 @@ let nombre = ref<string>("");
       <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 dark:text-[#00CBA9]">Contact Us</h1>
       <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Puedes contactar conmigo dejando tu mensaje en este formulario</p>
     </div>
-    <div class="lg:w-1/2 md:w-2/3 mx-auto">
+    <form @submit="OnSubmit" class="lg:w-1/2 md:w-2/3 mx-auto">
       <div class="flex flex-wrap -m-2">
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="name" class="leading-7 text-sm dark:text-[#00CBA9]">Name</label>
-            <input v-model="nombre" type="text" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="name" class="leading-7 text-sm dark:text-[#00CBA9]">nombre</label>
+            <Field  type="text" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></Field>
+            <ErrorMessage name='name'></ErrorMessage>  
           </div>
         </div>
         <div class="p-2 w-1/2">
           <div class="relative">
             <label for="email" class="leading-7 text-sm dark:text-[#00CBA9]">Email</label>
-            <input v-model="correo" type="email" id="email" name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <Field  type="email" id="email" name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></Field>
+            <ErrorMessage name='email'></ErrorMessage>
           </div>
         </div>
         <div class="p-2 w-full">
           <div class="relative">
             <label for="message" class="leading-7 text-sm dark:text-[#00CBA9]">Message</label>
-            <textarea v-model="mensaje" id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+            <Field id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></Field>
+            <ErrorMessage name='message'></ErrorMessage>
           </div>
         </div>
         <div class="p-2 w-full">
-          <button  @click="validarFormulario" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+          <button type="submit" class="flex mx-auto text-white dark:text-black   bg-[#00CBA9] border-0 py-2 px-8 focus:outline-none  hover:bg-emerald-800  rounded text-lg">Button</button>
         </div>
-        <div class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
+        <!-- <div class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
           <a class="text-indigo-500">example@email.com</a>
           <p class="leading-normal my-5">49 Smith St.
             <br>Saint Cloud, MN 56301
@@ -106,9 +81,9 @@ let nombre = ref<string>("");
               </svg>
             </a>
           </span>
-        </div>
+        </div> -->
       </div>
-    </div>
+    </form>
   </div>
 </section>
     </layout>

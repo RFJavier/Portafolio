@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import layout from '../components/layout.vue'
+import tecnologias from '../components/tecnologias.vue';
 
 </script>
 <template class="w-full h-auto">
@@ -39,6 +40,7 @@ Si está buscando un desarrollador web altamente motivado y comprometido con la 
 </div>
 </div>
 </section> 
+<tecnologias class=""></tecnologias>
     </layout>
 
    
